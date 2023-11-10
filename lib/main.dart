@@ -1,9 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'column_widget.dart';
-import 'hello_world.dart';
-import 'row_widget.dart';
+import 'src/ui/product_form.dart';
+import 'src/widgets/column_widget.dart';
+import 'src/widgets/hello_world.dart';
+import 'src/widgets/row_widget.dart';
 
 void main() {
   runApp(const MainApp());
@@ -34,7 +35,8 @@ class _HomeFeaturesState extends State<HomeFeatures> {
   final List<Widget> _container = [
     const HelloWorld(),
     const ColumnWidget(),
-    const RowWidget()
+    const RowWidget(),
+    const ProductForm(),
   ];
 
   @override
@@ -53,6 +55,7 @@ class _HomeFeaturesState extends State<HomeFeatures> {
             Icon(Icons.home_filled, size: 30),
             Icon(Icons.list, size: 30),
             Icon(Icons.arrow_forward_rounded, size: 30),
+            Icon(Icons.card_travel_rounded, size: 30),
           ],
           onTap: (index) {
             setState(() {
