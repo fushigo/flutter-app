@@ -7,7 +7,11 @@ class RowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("Hallo Page 3")],
+      children: [
+        Row(
+          children: [Text("Row ke-1"), Text("Row ke-2"), Text("Row ke-3")],
+        )
+      ],
     );
   }
 }
