@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +34,20 @@ class HomeFeatures extends StatefulWidget {
 
 class _HomeFeaturesState extends State<HomeFeatures> {
   int _listPageCurrentIndex = 0;
-  final List<Widget> _container = [
-    const HelloWorld(),
-    const ColumnWidget(),
-    const RowWidget(),
-    const ProductForm(),
-  ];
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  // final List<Widget> _container = [
+  // const HelloWorld(),
+  // const ColumnWidget(),
+  // const RowWidget(),
+  // const ProductForm(),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +55,27 @@ class _HomeFeaturesState extends State<HomeFeatures> {
         appBar: AppBar(
           title: const Text("Belajar Flutter"),
         ),
-        body: Center(
-          child: _container[_listPageCurrentIndex],
+        body: SafeArea(
+          child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _listPageCurrentIndex = index;
+                  });
+                },
+                children: const [
+                  HelloWorld(),
+                  ColumnWidget(),
+                  RowWidget(),
+                  ProductForm()
+                ],
+              )),
         ),
         bottomNavigationBar: CurvedNavigationBar(
+          index: _listPageCurrentIndex,
           animationDuration: const Duration(milliseconds: 300),
           backgroundColor: Colors.transparent,
           items: const <Widget>[
@@ -59,7 +86,9 @@ class _HomeFeaturesState extends State<HomeFeatures> {
           ],
           onTap: (index) {
             setState(() {
-              _listPageCurrentIndex = index;
+              _pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut);
             });
           },
         ));
